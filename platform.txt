@@ -16,15 +16,17 @@ compiler.warning_flags.default=
 compiler.warning_flags.more=-Wall
 compiler.warning_flags.all=-Wall -Wextra
 
-compiler.path={build.compiler_path}
+
+# compiler.path={build.compiler_path}
+compiler.path=/home/sabas/Arduino/tools/riscv32-wch-elf-gcc/bin/
 compiler.c.cmd={build.crossprefix}gcc
-compiler.c.flags=-c {compiler.warning_flags} -g3 -nostdlib "@{compiler.mbed.defines}" "@{compiler.mbed.cflags}" {compiler.mbed.arch.define} -MMD -mcpu={build.mcu} {build.float-abi} {build.fpu}
+compiler.c.flags=-c {compiler.warning_flags} "@{compiler.wch.cflags}" {compiler.wch.arch.define} -march={build.mcu} -mabi=ilp32
 compiler.c.elf.cmd={build.crossprefix}g++
 compiler.c.elf.flags=-Wl,--gc-sections {compiler.warning_flags} -Wl,--as-needed
 compiler.S.cmd={build.crossprefix}g++
-compiler.S.flags=-c -x assembler-with-cpp -mcpu={build.mcu} {build.fpu}
+compiler.S.flags=-c -x assembler-with-cpp -march={build.mcu} -mabi=ilp32
 compiler.cpp.cmd={build.crossprefix}g++
-compiler.cpp.flags=-c {compiler.warning_flags} -g3 -nostdlib "@{compiler.mbed.defines}" "@{compiler.mbed.cxxflags}" {compiler.mbed.arch.define} -MMD -mcpu={build.mcu} {build.float-abi} {build.fpu}
+compiler.cpp.flags=-c {compiler.warning_flags} -g3 -nostdlib {compiler.wch.arch.define} -march={build.mcu} -mabi=ilp32
 compiler.ar.cmd={build.crossprefix}ar
 compiler.ar.flags=rcs
 compiler.objcopy.cmd=
@@ -40,7 +42,7 @@ compiler.define=-DARDUINO=
 # this can be overriden in boards.txt
 build.extra_flags=
 build.extra_ldflags=
-compiler.mbed=
+compiler.wch=
 
 # These can be overridden in platform.local.txt
 compiler.c.extra_flags=
@@ -69,14 +71,15 @@ build.zip.pattern={recipe.size.pattern}
 # Linux compile patterns
 # -----------------------
 
+
 ## Compile c files
-recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DARDUINO_ARCH_MBED {build.library_discovery_phase_flag} {build.extra_flags} {build.extra_ldflags} {compiler.c.extra_flags} "-I{build.core.path}/api/deprecated" "-I{build.core.path}/api/deprecated-avr-comp" {includes} "-iprefix{build.core.path}" "@{compiler.mbed.includes}" -o "{object_file}" "{source_file}"
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DARDUINO_ARCH_WCH {build.library_discovery_phase_flag} {build.extra_flags} {build.extra_ldflags} {compiler.c.extra_flags} "-I{build.core.path}/api/deprecated" "-I{build.core.path}/api/deprecated-avr-comp" {includes} "-iprefix{build.core.path}" "@{compiler.wch.includes}" -o "{object_file}" "{source_file}"
 
 ## Compile c++ files
-recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DARDUINO_ARCH_MBED {build.library_discovery_phase_flag} {includes} {build.extra_flags} {build.extra_ldflags} {compiler.cpp.extra_flags} "-I{build.core.path}/api/deprecated" "-I{build.core.path}/api/deprecated-avr-comp" "-iprefix{build.core.path}" "@{compiler.mbed.includes}" "{source_file}" -o "{object_file}"
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DARDUINO_ARCH_WCH {build.library_discovery_phase_flag} {includes} {build.extra_flags} {build.extra_ldflags} {compiler.cpp.extra_flags} "-I{build.core.path}/api/deprecated" "-I{build.core.path}/api/deprecated-avr-comp" "-iprefix{build.core.path}" "@{compiler.wch.includes}" "{source_file}" -o "{object_file}"
 
 ## Compile asm files
-recipe.S.o.pattern="{compiler.path}{compiler.S.cmd}" {compiler.S.flags} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DARDUINO_ARCH_MBED {includes} {build.extra_flags} {build.extra_ldflags} {compiler.cpp.extra_flags} "-I{build.core.path}/api/deprecated" "-I{build.core.path}/api/deprecated-avr-comp" "-iprefix{build.core.path}" "@{compiler.mbed.includes}" "{source_file}" -o "{object_file}"
+recipe.S.o.pattern="{compiler.path}{compiler.S.cmd}" {compiler.S.flags} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DARDUINO_ARCH_WCH {includes} {build.extra_flags} {build.extra_ldflags} {compiler.cpp.extra_flags} "-I{build.core.path}/api/deprecated" "-I{build.core.path}/api/deprecated-avr-comp" "-iprefix{build.core.path}" "@{compiler.wch.includes}" "{source_file}" -o "{object_file}"
 
 ## Create archives
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}" "{object_file}"
@@ -85,7 +88,7 @@ recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compil
 recipe.hooks.linking.prelink.1.pattern="{compiler.path}{compiler.c.elf.cmd}" -E -P -x c {build.extra_ldflags} "{build.variant.path}/{build.ldscript}" -o "{build.path}/{build.ldscript}"
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}"  "-L{build.path}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} {build.extra_flags} {build.extra_ldflags} "@{compiler.mbed.ldflags}" "-T{build.path}/{build.ldscript}" "-Wl,-Map,{build.path}/{build.project_name}.map" --specs=nosys.specs {compiler.ldflags} -o "{build.path}/{build.project_name}.elf" {object_files} -Wl,--whole-archive "{build.path}/{archive_file}" {compiler.mbed} -Wl,--no-whole-archive -Wl,--start-group {compiler.mbed.extra_ldflags} {compiler.libraries.ldflags} -Wl,--end-group
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}"  "-L{build.path}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} {build.extra_flags} {build.extra_ldflags} "@{compiler.wch.ldflags}" "-T{build.path}/{build.ldscript}" "-Wl,-Map,{build.path}/{build.project_name}.map" --specs=nosys.specs {compiler.ldflags} -o "{build.path}/{build.project_name}.elf" {object_files} -Wl,--whole-archive "{build.path}/{archive_file}" {compiler.wch} -Wl,--no-whole-archive -Wl,--start-group {compiler.wch.extra_ldflags} {compiler.libraries.ldflags} -Wl,--end-group
 
 ## Create eeprom
 recipe.objcopy.eep.pattern=
@@ -96,9 +99,6 @@ recipe.objcopy.bin.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf
 ## Create output (hex file)
 recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
 
-## Create dfu package zip file
-##recipe.objcopy.zip.pattern="{tools.nrfutil.cmd}" dfu genpkg --dev-type 0x0052 --application "{build.path}/{build.project_name}.hex" "{build.path}/{build.project_name}.zip"
-
 ## Compute size
 recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
 recipe.size.regex.data=^(?:\.data|\.bss)\s+([0-9]+).*
@@ -107,13 +107,6 @@ recipe.size.regex=^(?:\.data|\.text|\.rodata)\S*?\s+([0-9]+).*
 ## Save hex
 recipe.output.tmp_file={build.project_name}.bin
 recipe.output.save_file={build.project_name}.{build.variant}.bin
-
-
-# Required discoveries and monitors
-# ---------------------------------
-pluggable_discovery.required.0=builtin:serial-discovery
-pluggable_discovery.required.1=builtin:mdns-discovery
-pluggable_monitor.required.serial=builtin:serial-monitor
 
 
 # Uploader tools
@@ -152,75 +145,6 @@ tools.bossac.cmd.windows=bossac.exe
 tools.bossac.upload.params.verbose=-d
 tools.bossac.upload.params.quiet=
 tools.bossac.upload.pattern="{path}/{cmd}" {upload.verbose} --port={serial.port.file} -U -i -e -w "{build.path}/{build.project_name}.bin" -R
-
-#
-# STM32FLASH
-#
-tools.stm32flash.cmd=stm32flash
-tools.stm32flash.path={runtime.platform.path}/tools/windows
-tools.stm32flash.path.macosx={runtime.platform.path}/tools/macosx
-tools.stm32flash.path.linux={runtime.platform.path}/tools/linux
-tools.stm32flash.upload.params.verbose=-v
-tools.stm32flash.upload.params.quiet=
-tools.stm32flash.upload.pattern="{path}/{cmd}" {serial.port} -e 1024 -b 2400 -w "{build.path}/{build.project_name}.bin"
-tools.stm32flash.program.params.verbose=-v
-tools.stm32flash.program.params.quiet=
-tools.stm32flash.program.pattern="{path}/{cmd}" {serial.port} -e 1024 -b 2400 -w "{build.path}/{build.project_name}.bin"
-tools.stm32flash.erase.params.verbose=-v
-tools.stm32flash.erase.params.quiet=
-tools.stm32flash.erase.pattern="{path}/{cmd}" {serial.port} -e 1024 -b 2400
-
-#
-# DFU_UTIL
-#
-tools.dfu-util.path={runtime.tools.dfu-util.path}
-tools.dfu-util.cmd=dfu-util
-tools.dfu-util.upload.params.verbose=-d
-tools.dfu-util.upload.params.quiet=
-tools.dfu-util.upload.pattern="{path}/{cmd}" --device {upload.vid}:{upload.pid} -D "{build.path}/{build.project_name}.bin" -a{upload.interface} --dfuse-address={upload.address}:leave
-
-#
-# NRFUTIL
-#
-# adafruit-nrfutil for uploading
-# https://github.com/adafruit/Adafruit_nRF52_nrfutil
-# pre-built binaries are provided for macos and windows
-#
-
-tools.nrfutil.cmd={runtime.tools.nrfutil-0.5.3post10.path}/adafruit-nrfutil
-tools.nrfutil.cmd.windows={runtime.tools.nrfutil-0.5.3post10.path}/adafruit-nrfutil.exe
-tools.nrfutil.cmd.macosx={runtime.tools.nrfutil-0.5.3post10.path}/adafruit-nrfutil
-
-tools.nrfutil.upload.params.verbose=--verbose
-tools.nrfutil.upload.params.quiet=
-tools.nrfutil.upload.pattern="{cmd}" {upload.verbose} dfu serial -pkg "{build.path}/{build.project_name}.zip" -p {serial.port} -b 115200 --singlebank
-
-#
-# PICOTOOL
-#
-tools.picotool.path={runtime.tools.rp2040tools.path}
-tools.picotool.cmd=rp2040load
-tools.picotool.upload.params.verbose=-v
-tools.picotool.upload.params.quiet=
-tools.picotool.upload.pattern="{path}/{cmd}" {upload.verbose} -D "{build.path}/{build.project_name}.elf"
-
-#
-# IMGTOOL
-#
-
-tools.imgtool.path={runtime.tools.imgtool.path}
-tools.imgtool.cmd=imgtool
-tools.imgtool.flags=sign --key "{build.keys.keychain}/{build.keys.sign_key}" --encrypt "{build.keys.keychain}/{build.keys.encrypt_key}" "{build.path}/{build.project_name}.bin" "{build.path}/{build.project_name}.bin" --align {build.alignment} --max-align {build.alignment} --version {build.version} --header-size {build.header_size} --pad-header --slot-size {build.slot_size}
-
-#
-# ADB WRAPPER
-#
-
-tools.adb.path={runtime.tools.adb.path}
-tools.adb.cmd=adb
-tools.adb.upload.params.verbose=-v
-tools.adb.upload.params.quiet=
-tools.adb.upload.pattern="{path}/{cmd}" push "{build.path}/{build.project_name}.elf" "/tmp/arduino/m4-user-sketch.elf"
 
 #
 # GDB (Debugger)

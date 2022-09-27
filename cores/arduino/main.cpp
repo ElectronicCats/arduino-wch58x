@@ -18,7 +18,6 @@
 */
 
 #include <Arduino.h>
-#include <USB/PluggableUSBSerial.h>
 
 // Declared weak in Arduino.h to allow user redefinitions.
 int atexit(void (* /*func*/ )()) { return 0; }
@@ -45,7 +44,7 @@ int main(void)
 
 	for (;;) {
 		loop();
-		if (arduino::serialEventRun) arduino::serialEventRun();
+		//if (arduino::serialEventRun) arduino::serialEventRun();
 	}
 
 	return 0;

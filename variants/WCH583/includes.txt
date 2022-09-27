@@ -1,0 +1,7 @@
+-iwithprefixbefore/ch583
+-iwithprefixbefore/ch583/EVT
+-iwithprefixbefore/ch583/EVT/EXAM
+-iwithprefixbefore/ch583/EVT/EXAM/SRC
+-iwithprefixbefore/ch583/EVT/EXAM/SRC/StdPeriphDriver
+-iwithprefixbefore/ch583/EVT/EXAM/SRC/StdPeriphDriver/inc
+-iwithprefixbefore/ch583/EVT/EXAM/SRC/RVMSIS

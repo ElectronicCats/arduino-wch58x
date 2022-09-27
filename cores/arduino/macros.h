@@ -1,5 +1,5 @@
 /*
-  wiring_digital.cpp - digital input and output functions
+  macros.h - basic porting layer for mbed-enabled boards
   Part of Arduino - http://www.arduino.cc/
 
   Copyright (c) 2018-2019 Arduino SA
@@ -20,42 +20,19 @@
   Boston, MA  02111-1307  USA
 */
 
-#include "Arduino.h"
-#include "CH58x_gpio.h"
+#pragma once
+#ifdef USE_ARDUINO_PINOUT
 
-void pinMode(uint32_t pin, PinMode mode)
-{
-  GPIOModeTypeDef pinConfig; 
-  switch (mode) {
-    case INPUT:
-      pinConfig=GPIO_ModeIN_Floating;
-      break;
-    case OUTPUT:
-      pinConfig=GPIO_ModeOut_PP_20mA;
-      break;
-    case INPUT_PULLUP:
-      pinConfig=GPIO_ModeIN_PU;
-      break;
-    case INPUT_PULLDOWN:
-    default:
-      pinConfig=GPIO_ModeIN_PD;
-      break;
-  }
-  GPIOA_ModeCfg(pin,pinConfig);
-}
+#include <Arduino.h>
+#include <PinNames.h>
 
+// this is needed for backwards compatibility
+#define digitalPinToInterrupt(P)    (P)
 
-void digitalWrite(uint32_t pin, PinStatus val)
-{
-  if(val){
-    GPIOA_SetBits(pin);
-  }
-  else{
-   GPIOA_ResetBits(pin);
-  } 
-}
+#else
 
-PinStatus digitalRead(uint32_t pin)
-{
-    return (PinStatus)GPIOA_ReadPortPin(pin);  
-}
+#define analogPinToPinName(P)       ((PinName)P)
+#define digitalPinToPinName(P)      ((PinName)P)
+#define digitalPinToInterrupt(P)    ((PinName)P)
+
+#endif

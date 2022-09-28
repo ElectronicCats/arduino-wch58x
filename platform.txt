@@ -135,24 +135,27 @@ tools.openocd.bootloader.params.verbose=-d2
 tools.openocd.bootloader.params.quiet=-d0
 tools.openocd.bootloader.pattern="{path}/{cmd}" {bootloader.verbose} -s "{path}/share/openocd/scripts/" {bootloader.programmer} {upload.transport} {bootloader.config} -c "telnet_port disabled; init; reset init; halt; adapter speed 10000; {bootloader.extra_action.preflash}; program {{runtime.platform.path}/bootloaders/{bootloader.file}}; reset run; shutdown"
 
-#
-# BOSSA
-#
-tools.bossac.path={runtime.tools.bossac-1.9.1-arduino2.path}
-tools.bossac.cmd=bossac
-tools.bossac.cmd.windows=bossac.exe
+# ch55xtool
+# -------------------------------------
 
-tools.bossac.upload.params.verbose=-d
-tools.bossac.upload.params.quiet=
-tools.bossac.upload.pattern="{path}/{cmd}" {upload.verbose} --port={serial.port.file} -U -i -e -w "{build.path}/{build.project_name}.bin" -R
+tools.ch55xtool_usb.cmd=ch55xtool
+# these lines are for manual install. For board manager installs they get converted to use
+# {runtime.tools.MCS51Tools.path} instead of {runtime.hardware.path}/tools
+tools.ch55xtool_usb.path={runtime.tools.MCS51Tools.path}/linux
+tools.ch55xtool_usb.path.windows={runtime.tools.MCS51Tools.path}/win
+tools.ch55xtool_usb.path.macosx={runtime.tools.MCS51Tools.path}/macosx
 
-#
-# GDB (Debugger)
-#
-# EXPERIMENTAL feature: debug.pattern
-#  - this is alpha and may be subject to change without notice
+tools.ch55xtool_usb.upload.params.verbose=
+tools.ch55xtool_usb.upload.params.quiet=
+tools.ch55xtool_usb.upload.pattern="{path}/{cmd}" "{build.path}/{build.project_name}.hex"
 
-tools.gdb.path={runtime.tools.arm-none-eabi-gcc-7-2017q4.path}/bin/
-tools.gdb.cmd=arm-none-eabi-gdb
-tools.gdb.cmd.windows=arm-none-eabi-gdb.exe
-tools.gdb.debug.pattern="{path}/{cmd}" --interpreter=mi2 -ex "set pagination off" --baud 115200 -ex "set target-charset ASCII" -ex "target remote {debug.port}" {build.path}/{build.project_name}.elf
+# ----
+
+tools.ch55xtool_serial.cmd=ch55xtool
+tools.ch55xtool_serial.path={runtime.tools.MCS51Tools.path}/linux
+tools.ch55xtool_serial.path.windows={runtime.tools.MCS51Tools.path}/win
+tools.ch55xtool_serial.path.macosx={runtime.tools.MCS51Tools.path}/macosx
+
+tools.ch55xtool_serial.upload.params.verbose=
+tools.ch55xtool_serial.upload.params.quiet=
+tools.ch55xtool_serial.upload.pattern="{path}/{cmd}" -s{serial.port} "{build.path}/{build.project_name}.hex"

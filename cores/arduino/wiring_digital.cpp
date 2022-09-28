@@ -23,7 +23,7 @@
 #include "Arduino.h"
 #include "CH58x_gpio.h"
 
-void pinMode(uint32_t pin, PinMode mode)
+void pinMode(pin_size_t pin, PinMode mode)
 {
   GPIOModeTypeDef pinConfig; 
   switch (mode) {
@@ -41,21 +41,21 @@ void pinMode(uint32_t pin, PinMode mode)
       pinConfig=GPIO_ModeIN_PD;
       break;
   }
-  GPIOA_ModeCfg(pin,pinConfig);
+  GPIOA_ModeCfg(pin << 1,pinConfig);
 }
 
 
-void digitalWrite(uint32_t pin, PinStatus val)
+void digitalWrite(pin_size_t pin, PinStatus val)
 {
   if(val){
-    GPIOA_SetBits(pin);
+    GPIOA_SetBits(pin << 1);
   }
   else{
-   GPIOA_ResetBits(pin);
+   GPIOA_ResetBits(pin << 1);
   } 
 }
 
-PinStatus digitalRead(uint32_t pin)
+PinStatus digitalRead(pin_size_t pin)
 {
-    return (PinStatus)GPIOA_ReadPortPin(pin);  
+    return (PinStatus)GPIOA_ReadPortPin(pin << 1);  
 }

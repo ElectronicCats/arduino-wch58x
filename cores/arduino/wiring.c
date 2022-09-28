@@ -34,7 +34,7 @@ unsigned long micros() {
 
 void delay(unsigned long ms)
 {
-    DelayUs(ms * 1000);
+    DelayMs(ms);
 }
 
 void delayMicroseconds(unsigned int us)

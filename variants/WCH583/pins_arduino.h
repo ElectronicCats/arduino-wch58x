@@ -3,7 +3,7 @@
 // Pin definitions taken from:
 
 // LEDs
-#define PIN_LED        (0u)
+#define PIN_LED        (1u)
 
 // Serial
 #define PIN_SERIAL1_TX (0u)

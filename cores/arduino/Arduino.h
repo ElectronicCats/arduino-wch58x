@@ -51,4 +51,9 @@
 void analogReadResolution(int bits);
 void analogWriteResolution(int bits);
 
+#ifdef __cplusplus
+//#include "SerialUSB.h"
+#include "SerialUART.h"
+#endif
+
 #endif

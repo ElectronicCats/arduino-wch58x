@@ -49,11 +49,11 @@ extern "C" {
  */
 typedef enum
 {
-    GPIO_ModeIN_Floating, //¸¡¿ÕÊäÈë
-    GPIO_ModeIN_PU,       //ÉÏÀ­ÊäÈë
-    GPIO_ModeIN_PD,       //ÏÂÀ­ÊäÈë
-    GPIO_ModeOut_PP_5mA,  //ÍÆÍìÊä³ö×î´ó5mA
-    GPIO_ModeOut_PP_20mA, //ÍÆÍìÊä³ö×î´ó20mA
+    GPIO_ModeIN_Floating, //Input Floating
+    GPIO_ModeIN_PU,       //Input PullUp
+    GPIO_ModeIN_PD,       //Input PullDown
+    GPIO_ModeOut_PP_5mA,  //Output5mA
+    GPIO_ModeOut_PP_20mA, //Output20mA
 
 } GPIOModeTypeDef;
 
@@ -62,169 +62,169 @@ typedef enum
  */
 typedef enum
 {
-    GPIO_ITMode_LowLevel,  //µÍµçÆ½´¥·¢
-    GPIO_ITMode_HighLevel, //¸ßµçÆ½´¥·¢
-    GPIO_ITMode_FallEdge,  //ÏÂ½µÑØ´¥·¢
-    GPIO_ITMode_RiseEdge,  //ÉÏÉýÑØ´¥·¢
+    GPIO_ITMode_LowLevel,  //ï¿½Íµï¿½Æ½ï¿½ï¿½ï¿½ï¿½
+    GPIO_ITMode_HighLevel, //ï¿½ßµï¿½Æ½ï¿½ï¿½ï¿½ï¿½
+    GPIO_ITMode_FallEdge,  //ï¿½Â½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½
+    GPIO_ITMode_RiseEdge,  //ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½
 
 } GPIOITModeTpDef;
 
 /**
- * @brief   GPIOA¶Ë¿ÚÒý½ÅÄ£Ê½ÅäÖÃ
+ * @brief   GPIOAï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½
  *
  * @param   pin     - PA0-PA15
- * @param   mode    - ÊäÈëÊä³öÀàÐÍ
+ * @param   mode    - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 void GPIOA_ModeCfg(uint32_t pin, GPIOModeTypeDef mode);
 
 /**
- * @brief   GPIOB¶Ë¿ÚÒý½ÅÄ£Ê½ÅäÖÃ
+ * @brief   GPIOBï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½
  *
  * @param   pin     - PB0-PB23
- * @param   mode    - ÊäÈëÊä³öÀàÐÍ
+ * @param   mode    - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 void GPIOB_ModeCfg(uint32_t pin, GPIOModeTypeDef mode);
 
 /**
- * @brief   GPIOA¶Ë¿ÚÒý½ÅÊä³öÖÃµÍ
+ * @brief   GPIOAï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½
  *
  * @param   pin     - PA0-PA15
  */
 #define GPIOA_ResetBits(pin)      (R32_PA_CLR |= pin)
 
 /**
- * @brief   GPIOA¶Ë¿ÚÒý½ÅÊä³öÖÃ¸ß
+ * @brief   GPIOAï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½
  *
  * @param   pin     - PA0-PA15
  */
 #define GPIOA_SetBits(pin)        (R32_PA_OUT |= pin)
 
 /**
- * @brief   GPIOB¶Ë¿ÚÒý½ÅÊä³öÖÃµÍ
+ * @brief   GPIOBï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½
  *
  * @param   pin     - PB0-PB23
  */
 #define GPIOB_ResetBits(pin)      (R32_PB_CLR |= pin)
 
 /**
- * @brief   GPIOB¶Ë¿ÚÒý½ÅÊä³öÖÃ¸ß
+ * @brief   GPIOBï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½
  *
  * @param   pin     - PB0-PB23
  */
 #define GPIOB_SetBits(pin)        (R32_PB_OUT |= pin)
 
 /**
- * @brief   GPIOA¶Ë¿ÚÒý½ÅÊä³öµçÆ½·­×ª
+ * @brief   GPIOAï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½×ª
  *
  * @param   pin     - PA0-PA15
  */
 #define GPIOA_InverseBits(pin)    (R32_PA_OUT ^= pin)
 
 /**
- * @brief   GPIOB¶Ë¿ÚÒý½ÅÊä³öµçÆ½·­×ª
+ * @brief   GPIOBï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½×ª
  *
  * @param   pin     - PB0-PB23
  */
 #define GPIOB_InverseBits(pin)    (R32_PB_OUT ^= pin)
 
 /**
- * @brief   GPIOA¶Ë¿Ú32Î»Êý¾Ý·µ»Ø£¬µÍ16Î»ÓÐÐ§
+ * @brief   GPIOAï¿½Ë¿ï¿½32Î»ï¿½ï¿½ï¿½Ý·ï¿½ï¿½Ø£ï¿½ï¿½ï¿½16Î»ï¿½ï¿½Ð§
  *
- * @return  GPIOA¶Ë¿Ú32Î»Êý¾Ý
+ * @return  GPIOAï¿½Ë¿ï¿½32Î»ï¿½ï¿½ï¿½ï¿½
  */
 #define GPIOA_ReadPort()          (R32_PA_PIN)
 
 /**
- * @brief   GPIOB¶Ë¿Ú32Î»Êý¾Ý·µ»Ø£¬µÍ24Î»ÓÐÐ§
+ * @brief   GPIOBï¿½Ë¿ï¿½32Î»ï¿½ï¿½ï¿½Ý·ï¿½ï¿½Ø£ï¿½ï¿½ï¿½24Î»ï¿½ï¿½Ð§
  *
- * @return  GPIOB¶Ë¿Ú32Î»Êý¾Ý
+ * @return  GPIOBï¿½Ë¿ï¿½32Î»ï¿½ï¿½ï¿½ï¿½
  */
 #define GPIOB_ReadPort()          (R32_PB_PIN)
 
 /**
- * @brief   GPIOA¶Ë¿ÚÒý½Å×´Ì¬£¬0-Òý½ÅµÍµçÆ½£¬(!0)-Òý½Å¸ßµçÆ½
+ * @brief   GPIOAï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½0-ï¿½ï¿½ï¿½ÅµÍµï¿½Æ½ï¿½ï¿½(!0)-ï¿½ï¿½ï¿½Å¸ßµï¿½Æ½
  *
  * @param   pin     - PA0-PA15
  *
- * @return  GPIOA¶Ë¿ÚÒý½Å×´Ì¬
+ * @return  GPIOAï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
  */
 #define GPIOA_ReadPortPin(pin)    (R32_PA_PIN & (pin))
 
 /**
- * @brief   GPIOB¶Ë¿ÚÒý½Å×´Ì¬£¬0-Òý½ÅµÍµçÆ½£¬(!0)-Òý½Å¸ßµçÆ½
+ * @brief   GPIOBï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½0-ï¿½ï¿½ï¿½ÅµÍµï¿½Æ½ï¿½ï¿½(!0)-ï¿½ï¿½ï¿½Å¸ßµï¿½Æ½
  *
  * @param   pin     - PB0-PB23
  *
- * @return  GPIOB¶Ë¿ÚÒý½Å×´Ì¬
+ * @return  GPIOBï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
  */
 #define GPIOB_ReadPortPin(pin)    (R32_PB_PIN & (pin))
 
 /**
- * @brief   GPIOAÒý½ÅÖÐ¶ÏÄ£Ê½ÅäÖÃ
+ * @brief   GPIOAï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½
  *
  * @param   pin     - PA0-PA15
- * @param   mode    - ´¥·¢ÀàÐÍ
+ * @param   mode    - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 void GPIOA_ITModeCfg(uint32_t pin, GPIOITModeTpDef mode);
 
 /**
- * @brief   GPIOBÒý½ÅÖÐ¶ÏÄ£Ê½ÅäÖÃ
+ * @brief   GPIOBï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½
  *
  * @param   pin     - PB0-PB23
- * @param   mode    - ´¥·¢ÀàÐÍ
+ * @param   mode    - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 void GPIOB_ITModeCfg(uint32_t pin, GPIOITModeTpDef mode);
 
 /**
- * @brief   ¶ÁÈ¡GPIOA¶Ë¿ÚÖÐ¶Ï±êÖ¾×´Ì¬
+ * @brief   ï¿½ï¿½È¡GPIOAï¿½Ë¿ï¿½ï¿½Ð¶Ï±ï¿½Ö¾×´Ì¬
  *
- * @return  GPIOA¶Ë¿ÚÖÐ¶Ï±êÖ¾×´Ì¬
+ * @return  GPIOAï¿½Ë¿ï¿½ï¿½Ð¶Ï±ï¿½Ö¾×´Ì¬
  */
 #define GPIOA_ReadITFlagPort()       (R16_PA_INT_IF)
 
 /**
- * @brief   ¶ÁÈ¡GPIOB¶Ë¿ÚÖÐ¶Ï±êÖ¾×´Ì¬
+ * @brief   ï¿½ï¿½È¡GPIOBï¿½Ë¿ï¿½ï¿½Ð¶Ï±ï¿½Ö¾×´Ì¬
  *
- * @return  GPIOB¶Ë¿ÚÖÐ¶Ï±êÖ¾×´Ì¬
+ * @return  GPIOBï¿½Ë¿ï¿½ï¿½Ð¶Ï±ï¿½Ö¾×´Ì¬
  */
 #define GPIOB_ReadITFlagPort()       ((R16_PB_INT_IF & (~((GPIO_Pin_22 | GPIO_Pin_23) >> 14))) | ((R16_PB_INT_IF << 14) & (GPIO_Pin_22 | GPIO_Pin_23)))
 
 /**
- * @brief   ¶ÁÈ¡GPIOA¶Ë¿ÚÒý½ÅÖÐ¶Ï±êÖ¾×´Ì¬
+ * @brief   ï¿½ï¿½È¡GPIOAï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï±ï¿½Ö¾×´Ì¬
  *
  * @param   pin     - PA0-PA15
  *
- * @return  GPIOA¶Ë¿ÚÒý½ÅÖÐ¶Ï±êÖ¾×´Ì¬
+ * @return  GPIOAï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï±ï¿½Ö¾×´Ì¬
  */
 #define GPIOA_ReadITFlagBit(pin)     (R16_PA_INT_IF & (pin))
 
 /**
- * @brief   ¶ÁÈ¡GPIOB¶Ë¿ÚÒý½ÅÖÐ¶Ï±êÖ¾×´Ì¬
+ * @brief   ï¿½ï¿½È¡GPIOBï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï±ï¿½Ö¾×´Ì¬
  *
  * @param   pin     - PB0-PB23
  *
- * @return  GPIOB¶Ë¿ÚÒý½ÅÖÐ¶Ï±êÖ¾×´Ì¬
+ * @return  GPIOBï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï±ï¿½Ö¾×´Ì¬
  */
 #define GPIOB_ReadITFlagBit(pin)     (R16_PB_INT_IF & ((pin) | (((pin) & (GPIO_Pin_22 | GPIO_Pin_23)) >> 14)))
 
 /**
- * @brief   Çå³ýGPIOA¶Ë¿ÚÒý½ÅÖÐ¶Ï±êÖ¾×´Ì¬
+ * @brief   ï¿½ï¿½ï¿½GPIOAï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï±ï¿½Ö¾×´Ì¬
  *
  * @param   pin     - PA0-PA15
  */
 #define GPIOA_ClearITFlagBit(pin)    (R16_PA_INT_IF = pin)
 
 /**
- * @brief   Çå³ýGPIOB¶Ë¿ÚÒý½ÅÖÐ¶Ï±êÖ¾×´Ì¬
+ * @brief   ï¿½ï¿½ï¿½GPIOBï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï±ï¿½Ö¾×´Ì¬
  *
  * @param   pin     - PB0-PB23
  */
 #define GPIOB_ClearITFlagBit(pin)    (R16_PB_INT_IF = ((pin) | (((pin) & (GPIO_Pin_22 | GPIO_Pin_23)) >> 14)))
 
 /**
- * @brief   ÍâÉè¹¦ÄÜÒý½ÅÓ³Éä
+ * @brief   ï¿½ï¿½ï¿½è¹¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó³ï¿½ï¿½
  *
- * @param   s       - ÊÇ·ñÊ¹ÄÜÓ³Éä
+ * @param   s       - ï¿½Ç·ï¿½Ê¹ï¿½ï¿½Ó³ï¿½ï¿½
  * @param   perph   - RB_PIN_SPI0   -  SPI0:  PA12/PA13/PA14/PA15 -> PB12/PB13/PB14/PB15
  *                    RB_PIN_UART1  -  UART1: PA8/PA9 ->  PB12/PB13
  *                    RB_PIN_UART0  -  UART0: PB4/PB7 ->  PA15/PA14
@@ -235,25 +235,25 @@ void GPIOB_ITModeCfg(uint32_t pin, GPIOITModeTpDef mode);
 void GPIOPinRemap(FunctionalState s, uint16_t perph);
 
 /**
- * @brief   Ä£ÄâÍâÉèGPIOÒý½Å¹¦ÄÜ¿ØÖÆ
+ * @brief   Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½GPIOï¿½ï¿½ï¿½Å¹ï¿½ï¿½Ü¿ï¿½ï¿½ï¿½
  *
- * @param   s       - ÊÇ·ñÆôÓÃÄ£ÄâÍâÉè¹¦ÄÜ
- * @param   perph   - RB_PIN_ADC0_1_IE      -  ADC0-1Í¨µÀ
- *                    RB_PIN_ADC2_3_IE      -  ADC2-3Í¨µÀ
- *                    RB_PIN_ADC4_5_IE      -  ADC4-5Í¨µÀ
- *                    RB_PIN_ADC6_7_IE      -  ADC6-7Í¨µÀ
- *                    RB_PIN_ADC8_9_IE      -  ADC8-9Í¨µÀ
- *                    RB_PIN_ADC10_11_IE    -  ADC10-11Í¨µÀ
- *                    RB_PIN_ADC12_13_IE    -  ADC12-13Í¨µÀ
- *                    RB_PIN_XT32K_IE       -  Íâ²¿32KÒý½Å
- *                    RB_PIN_USB_IE         -  USB¹¦ÄÜÐÅºÅÒý½Å
- *                    RB_PIN_ETH_IE         -  ÒÔÌ«Íø¹¦ÄÜÐÅºÅÒý½Å
- *                    RB_PIN_SEG0_3_IE      -  LCD¿ØÖÆÆ÷SEG0-3Çý¶¯Òý½Å
- *                    RB_PIN_SEG4_7_IE      -  LCD¿ØÖÆÆ÷SEG4-7Çý¶¯Òý½Å
- *                    RB_PIN_SEG8_11_IE     -  LCD¿ØÖÆÆ÷SEG8-11Çý¶¯Òý½Å
- *                    RB_PIN_SEG12_15_IE    -  LCD¿ØÖÆÆ÷SEG12-15Çý¶¯Òý½Å
- *                    RB_PIN_SEG16_19_IE    -  LCD¿ØÖÆÆ÷SEG16-19Çý¶¯Òý½Å
- *                    RB_PIN_SEG20_23_IE    -  LCD¿ØÖÆÆ÷SEG20-23Çý¶¯Òý½Å
+ * @param   s       - ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½è¹¦ï¿½ï¿½
+ * @param   perph   - RB_PIN_ADC0_1_IE      -  ADC0-1Í¨ï¿½ï¿½
+ *                    RB_PIN_ADC2_3_IE      -  ADC2-3Í¨ï¿½ï¿½
+ *                    RB_PIN_ADC4_5_IE      -  ADC4-5Í¨ï¿½ï¿½
+ *                    RB_PIN_ADC6_7_IE      -  ADC6-7Í¨ï¿½ï¿½
+ *                    RB_PIN_ADC8_9_IE      -  ADC8-9Í¨ï¿½ï¿½
+ *                    RB_PIN_ADC10_11_IE    -  ADC10-11Í¨ï¿½ï¿½
+ *                    RB_PIN_ADC12_13_IE    -  ADC12-13Í¨ï¿½ï¿½
+ *                    RB_PIN_XT32K_IE       -  ï¿½â²¿32Kï¿½ï¿½ï¿½ï¿½
+ *                    RB_PIN_USB_IE         -  USBï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½
+ *                    RB_PIN_ETH_IE         -  ï¿½ï¿½Ì«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½
+ *                    RB_PIN_SEG0_3_IE      -  LCDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SEG0-3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ *                    RB_PIN_SEG4_7_IE      -  LCDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SEG4-7ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ *                    RB_PIN_SEG8_11_IE     -  LCDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SEG8-11ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ *                    RB_PIN_SEG12_15_IE    -  LCDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SEG12-15ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ *                    RB_PIN_SEG16_19_IE    -  LCDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SEG16-19ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ *                    RB_PIN_SEG20_23_IE    -  LCDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SEG20-23ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 void GPIOAGPPCfg(FunctionalState s, uint16_t perph);
 

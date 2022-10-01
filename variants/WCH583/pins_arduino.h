@@ -4,6 +4,7 @@
 
 // LEDs
 #define PIN_LED        (1u)
+#define LED_BUILTIN PIN_LED
 
 // Serial
 #define PIN_SERIAL1_TX (0u)
@@ -34,4 +35,9 @@
 #define SPI_HOWMANY    (2u)
 #define WIRE_HOWMANY   (2u)
 
-#include "../WCH583/common.h"
+static const uint8_t A0 = (4u);
+static const uint8_t A1 = (5u);
+static const uint8_t A2 = (12u);
+static const uint8_t A3 = (13u);
+static const uint8_t A4 = (14u);
+static const uint8_t A5 = (15u);

@@ -138,24 +138,14 @@ tools.openocd.bootloader.pattern="{path}/{cmd}" {bootloader.verbose} -s "{path}/
 # ch55xtool
 # -------------------------------------
 
-tools.ch55xtool_usb.cmd=ch55xtool
+tools.ch55xtool_usb.cmd=ch55xtool.py
 # these lines are for manual install. For board manager installs they get converted to use
 # {runtime.tools.MCS51Tools.path} instead of {runtime.hardware.path}/tools
-tools.ch55xtool_usb.path={runtime.tools.MCS51Tools.path}/linux
+#tools.ch55xtool_usb.path={runtime.tools.MCS51Tools.path}/linux
+tools.ch55xtool_usb.path=/home/sabas/Arduino/tools/ch55xtool
 tools.ch55xtool_usb.path.windows={runtime.tools.MCS51Tools.path}/win
 tools.ch55xtool_usb.path.macosx={runtime.tools.MCS51Tools.path}/macosx
 
 tools.ch55xtool_usb.upload.params.verbose=
 tools.ch55xtool_usb.upload.params.quiet=
-tools.ch55xtool_usb.upload.pattern="{path}/{cmd}" "{build.path}/{build.project_name}.hex"
-
-# ----
-
-tools.ch55xtool_serial.cmd=ch55xtool
-tools.ch55xtool_serial.path={runtime.tools.MCS51Tools.path}/linux
-tools.ch55xtool_serial.path.windows={runtime.tools.MCS51Tools.path}/win
-tools.ch55xtool_serial.path.macosx={runtime.tools.MCS51Tools.path}/macosx
-
-tools.ch55xtool_serial.upload.params.verbose=
-tools.ch55xtool_serial.upload.params.quiet=
-tools.ch55xtool_serial.upload.pattern="{path}/{cmd}" -s{serial.port} "{build.path}/{build.project_name}.hex"
+tools.ch55xtool_usb.upload.pattern="{path}/{cmd}" -f "{build.path}/{build.project_name}.bin"

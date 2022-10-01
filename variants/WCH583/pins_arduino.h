@@ -7,11 +7,8 @@
 #define LED_BUILTIN PIN_LED
 
 // Serial
-#define PIN_SERIAL1_TX (0u)
-#define PIN_SERIAL1_RX (1u)
-
-#define PIN_SERIAL2_TX (8u)
-#define PIN_SERIAL2_RX (9u)
+#define PIN_SERIAL1_TX (9u)
+#define PIN_SERIAL1_RX (8u)
 
 // SPI
 #define PIN_SPI0_MISO  (16u)
@@ -31,9 +28,9 @@
 #define PIN_WIRE1_SDA  (26u)
 #define PIN_WIRE1_SCL  (27u)
 
-#define SERIAL_HOWMANY (3u)
-#define SPI_HOWMANY    (2u)
-#define WIRE_HOWMANY   (2u)
+#define SERIAL_HOWMANY (1u)
+#define SPI_HOWMANY    (1u)
+#define WIRE_HOWMANY   (1u)
 
 static const uint8_t A0 = (4u);
 static const uint8_t A1 = (5u);

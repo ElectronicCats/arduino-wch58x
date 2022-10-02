@@ -29,7 +29,6 @@ public:
     operator bool();
 private:
     bool _running = false;
-    //uart_inst_t *_uart;
     pin_size_t _tx, _rx;
     int _baud;
     int _peek;

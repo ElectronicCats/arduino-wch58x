@@ -13,9 +13,9 @@ bool SerialUART::setPinout(pin_size_t tx, pin_size_t rx)
 
 void SerialUART::begin(unsigned long baud, uint16_t config)
 {
-    GPIOA_SetBits(_tx << 1);
-    GPIOA_ModeCfg(_rx << 1, GPIO_ModeIN_PU);
-    GPIOA_ModeCfg(_tx << 1, GPIO_ModeOut_PP_5mA);
+    GPIOA_SetBits(GPIO_Pin_9);
+    GPIOA_ModeCfg(GPIO_Pin_8, GPIO_ModeIN_PU);      // RXD
+    GPIOA_ModeCfg(GPIO_Pin_9, GPIO_ModeOut_PP_5mA); // TXD
 
     _baud = baud;
     
@@ -77,9 +77,12 @@ size_t SerialUART::write(const uint8_t *p, size_t len)
     size_t cnt = len;
     while (cnt)
     {
-        UART1_SendByte(*p);
-        cnt--;
-        p++;
+        if(R8_UART1_TFC != UART_FIFO_SIZE)
+        {
+          R8_UART1_THR = *p;
+          cnt--;
+          p++;
+        }
     }
     return len;
 }

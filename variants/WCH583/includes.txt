@@ -4,4 +4,8 @@
 -iwithprefixbefore/ch583/EVT/EXAM/SRC
 -iwithprefixbefore/ch583/EVT/EXAM/SRC/StdPeriphDriver
 -iwithprefixbefore/ch583/EVT/EXAM/SRC/StdPeriphDriver/inc
+-iwithprefixbefore/ch583/EVT/EXAM/SRC/LIB
 -iwithprefixbefore/ch583/EVT/EXAM/SRC/RVMSIS
+-iwithprefixbefore/ch583/EVT/EXAM/SRC/HAL
+-iwithprefixbefore/ch583/EVT/EXAM/SRC/HAL/include
+

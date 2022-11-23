@@ -2,6 +2,16 @@
 
 Arduino core for the WCH
 
+## Backers
+
+Support us with a monthly donation and help us continue our activities. [[Become a backer](https://github.com/sponsors/ElectronicCats)]
+
+
+## Sponsors
+
+Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://github.com/sponsors/ElectronicCats)]
+
+
 # Contributing
 If you want to contribute or have bugfixes, open an issue/PR here.
 

@@ -3,7 +3,7 @@
 Arduino core for the WCH
 
 # Contributing
-If you want to contribute or have bugfixes, drop me a note at <earlephilhower@yahoo.com> or open an issue/PR here.
+If you want to contribute or have bugfixes, open an issue/PR here.
 
 # Licensing and Credits
 * The [Arduino IDE and ArduinoCore-API](https://arduino.cc) are developed and maintained by the Arduino team. The IDE is licensed under GPL.

@@ -17,6 +17,7 @@ If you want to contribute or have bugfixes, open an issue/PR here.
 
 # Licensing and Credits
 * The [Arduino IDE and ArduinoCore-API](https://arduino.cc) are developed and maintained by the Arduino team. The IDE is licensed under GPL.
+* Based in [SDK OpenWCH](https://github.com/openwch/ch583)
 
 This core has been developed by Electronic Cats in collaboration with .
 
@@ -37,5 +38,3 @@ This core has been developed by Electronic Cats in collaboration with .
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ```
-
-

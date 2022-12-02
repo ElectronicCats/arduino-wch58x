@@ -65,7 +65,7 @@ If you want to contribute or have bugfixes, open an issue/PR here.
 * [CH552tool python](https://github.com/MarsTechHAN/ch552tool)
 * [The xPack GNU RISC-V Embedded GCC](https://xpack.github.io/riscv-none-embed-gcc/)
 
-This core has been developed by Electronic Cats in collaboration with .
+This core has been developed by Electronic Cats.
 
 ```
   Copyright (c) 2015 Electronic Cats SAPI de CV.  All right reserved.

@@ -1,4 +1,4 @@
-# Arduino-WCH
+# Arduino-WCH58x
 
 Arduino core for the CH58x
 

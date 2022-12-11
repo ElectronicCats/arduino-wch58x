@@ -48,9 +48,26 @@ void analogWriteResolution(int bits)
 
 int analogRead(pin_size_t pin)
 {
+  int channel = 0;
   GPIOA_ModeCfg(1 << (pin), GPIO_ModeIN_Floating);
   ADC_ExtSingleChSampInit(SampleFreq_3_2, ADC_PGA_0);
-  ADC_ChannelCfg(0);
+  if((pin == 4) || (pin == 6) || (pin == 7) ){
+    channel = pin - 4;
+    ADC_ChannelCfg(channel);
+  }
+  else if((pin == 5) || (pin == 8) || (pin == 9) ){
+    channel = pin + 4;
+    ADC_ChannelCfg(channel);
+  }
+  else if( (pin > 11) && (pin <16)){
+    channel = pin - 10;
+    ADC_ChannelCfg(channel);
+  }
+  else{ 
+    channel = 9-pin;
+    ADC_ChannelCfg(channel);
+  }
+  
   return ADC_ExcutSingleConver() + ADC_DataCalib_Rough();
   
 }

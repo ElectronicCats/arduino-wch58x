@@ -25,7 +25,6 @@
 
 static int write_resolution = 8;
 static int read_resolution = 10;
-signed short RoughCalib_Value = 0;
 
 #if DEVICE_ANALOGOUT
 
@@ -36,7 +35,7 @@ void analogWriteDAC(pin_size_t pin, int val) {
 
 void analogWrite(pin_size_t pin, int val)
 {
-  GPIOA_ModeCfg(pin << 1, GPIO_ModeOut_PP_5mA);
+  GPIOA_ModeCfg(1 << (pin), GPIO_ModeOut_PP_5mA);
   PWMX_CLKCfg(4);                                   // cycle = 4/Fsys
   PWMX_CycleCfg(PWMX_Cycle_64);                     // ���� = 64*cycle
   PWMX_ACTOUT(CH_PWM4, 64 / 4, Low_Level, ENABLE);  //
@@ -49,12 +48,10 @@ void analogWriteResolution(int bits)
 
 int analogRead(pin_size_t pin)
 {
-  GPIOA_ModeCfg(pin << 1, GPIO_ModeIN_Floating);
+  GPIOA_ModeCfg(1 << (pin), GPIO_ModeIN_Floating);
   ADC_ExtSingleChSampInit(SampleFreq_3_2, ADC_PGA_0);
-  RoughCalib_Value = ADC_DataCalib_Rough();
-
   ADC_ChannelCfg(0);
-  return ADC_ExcutSingleConver() + RoughCalib_Value;
+  return ADC_ExcutSingleConver() + ADC_DataCalib_Rough();
   
 }
 

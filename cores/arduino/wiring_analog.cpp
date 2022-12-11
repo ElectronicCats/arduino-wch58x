@@ -40,7 +40,7 @@ void analogWrite(pin_size_t pin, int val)
   GPIOA_ModeCfg(1 << (pin), GPIO_ModeOut_PP_5mA);
   PWMX_CLKCfg(4);                                   // cycle = 4/Fsys
   PWMX_CycleCfg(PWMX_Cycle_256);                     // ���� = 64*cycle
-  if(pin == 6 || pin == 12){
+  if(pin == 12){
     channel = CH_PWM4;
   }
   else if(pin == 13){

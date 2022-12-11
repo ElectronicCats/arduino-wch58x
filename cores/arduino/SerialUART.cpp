@@ -4,21 +4,22 @@ bool SerialUART::setPinout(pin_size_t tx, pin_size_t rx)
 {
     _tx = tx;
     _rx = rx;
-    GPIOA_SetBits(_tx << 1);
-    GPIOA_ModeCfg(_rx << 1, GPIO_ModeIN_PU);
-    GPIOA_ModeCfg(_tx << 1, GPIO_ModeOut_PP_5mA);
+    GPIOA_SetBits(1 << (_tx));
+    GPIOA_ModeCfg(1 << (_rx), GPIO_ModeIN_PU);
+    GPIOA_ModeCfg(1 << (_tx), GPIO_ModeOut_PP_5mA);
 
     return true;
 }
 
 void SerialUART::begin(unsigned long baud, uint16_t config)
 {
-    GPIOA_SetBits(GPIO_Pin_9);
-    GPIOA_ModeCfg(GPIO_Pin_8, GPIO_ModeIN_PU);      // RXD
-    GPIOA_ModeCfg(GPIO_Pin_9, GPIO_ModeOut_PP_5mA); // TXD
+    
+    GPIOA_SetBits(1 << (_tx)); //UART1
+    GPIOA_ModeCfg(1 << (_rx), GPIO_ModeIN_PU); //RXD
+    GPIOA_ModeCfg(1 << (_tx), GPIO_ModeOut_PP_5mA); //TXD
 
     _baud = baud;
-    
+
     UART1_BaudRateCfg(_baud);
     R8_UART1_FCR = (2 << 6) | RB_FCR_TX_FIFO_CLR | RB_FCR_RX_FIFO_CLR | RB_FCR_FIFO_EN; // FIFO�򿪣�������4�ֽ�
     R8_UART1_LCR = RB_LCR_WORD_SZ;

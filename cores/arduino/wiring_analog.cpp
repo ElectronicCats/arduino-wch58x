@@ -36,10 +36,17 @@ void analogWriteDAC(pin_size_t pin, int val) {
 
 void analogWrite(pin_size_t pin, int val)
 {
-  GPIOA_ModeCfg(pin << 1, GPIO_ModeOut_PP_5mA);
+  uint8_t channel = 0x00;
+  GPIOA_ModeCfg(1 << (pin), GPIO_ModeOut_PP_5mA);
   PWMX_CLKCfg(4);                                   // cycle = 4/Fsys
-  PWMX_CycleCfg(PWMX_Cycle_64);                     // ���� = 64*cycle
-  PWMX_ACTOUT(CH_PWM4, 64 / 4, Low_Level, ENABLE);  //
+  PWMX_CycleCfg(PWMX_Cycle_256);                     // ���� = 64*cycle
+  if(pin == 6 || pin == 12){
+    channel = CH_PWM4;
+  }
+  else if(pin == 13){
+    channel = CH_PWM5;
+  }
+  PWMX_ACTOUT(channel, val , Low_Level, ENABLE);  //
 }
 
 void analogWriteResolution(int bits)

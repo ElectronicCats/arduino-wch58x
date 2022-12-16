@@ -41,21 +41,21 @@ void pinMode(pin_size_t pin, PinMode mode)
       pinConfig=GPIO_ModeIN_PD;
       break;
   }
-  GPIOA_ModeCfg(pin << 1,pinConfig);
+  GPIOA_ModeCfg(1 << (pin),pinConfig);
 }
 
 
 void digitalWrite(pin_size_t pin, PinStatus val)
 {
   if(val){
-    GPIOA_SetBits(pin << 1);
+    GPIOA_SetBits(1 << (pin));
   }
   else{
-   GPIOA_ResetBits(pin << 1);
+   GPIOA_ResetBits(1 << (pin));
   } 
 }
 
 PinStatus digitalRead(pin_size_t pin)
 {
-    return (PinStatus)GPIOA_ReadPortPin(pin << 1);  
+    return (PinStatus)GPIOA_ReadPortPin(1 << (pin));  
 }

@@ -42,20 +42,39 @@ void pinMode(pin_size_t pin, PinMode mode)
       break;
   }
   GPIOA_ModeCfg(1 << (pin),pinConfig);
+  GPIOB_ModeCfg(1 << (pin - 16),pinConfig);
+
 }
 
 
 void digitalWrite(pin_size_t pin, PinStatus val)
 {
+  if (pin <16){
   if(val){
     GPIOA_SetBits(1 << (pin));
   }
   else{
    GPIOA_ResetBits(1 << (pin));
-  } 
+    }
+  }
+  
+  else{
+    if(val){
+    GPIOB_SetBits(1 << (pin - 16));
+  }
+  else{
+   GPIOB_ResetBits(1 << (pin  - 16));
+    } 
+  }
 }
 
 PinStatus digitalRead(pin_size_t pin)
 {
-    return (PinStatus)GPIOA_ReadPortPin(1 << (pin));  
+
+  if (pin <16){
+    return (PinStatus)GPIOA_ReadPortPin(1 << (pin)); 
+  }
+else{
+    return (PinStatus)GPIOB_ReadPortPin(1 << (pin - 16));
+} 
 }

@@ -61,7 +61,7 @@ If you want to contribute or have bugfixes, open an issue/PR here.
 
 # Licensing and Credits
 * The [Arduino IDE and ArduinoCore-API](https://arduino.cc) are developed and maintained by the Arduino team. The IDE is licensed under GPL.
-* Based in [SDK OpenWCH](https://github.com/openwch/ch583)
+* [SDK CH58x](https://github.com/ElectronicCats/RISC-V-CH583-CORE) based in [SDK OpenWCH](https://github.com/openwch/ch583)
 * [CH552tool python](https://github.com/MarsTechHAN/ch552tool)
 * [The xPack GNU RISC-V Embedded GCC](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases)
 

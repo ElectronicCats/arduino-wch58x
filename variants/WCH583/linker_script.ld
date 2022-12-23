@@ -18,26 +18,10 @@ SECTIONS
 		_einit = .;
 	} >FLASH AT>FLASH
 	
-    .vector :
+ /*   .vector :
     {
-    	. = 0x0c;  /* WCH Link 调试需要固定vector地址  */
         *(.vector);
-    } >FLASH AT>FLASH 
-    
-    .highcodecopylalign : 
-    {       
-        . = ALIGN(4);
-        PROVIDE(_highcode_copy_lma = .); 
-    } >FLASH AT>FLASH 
-    
-    .highcode_copy :
-    {
-        . = ALIGN(4);
-        PROVIDE(_highcode_copy_start = .);
-        *(.highcode_copy);
-		*(.highcode_copy.*);
-        PROVIDE(_highcode_copy_end = .);
-    } >RAM AT>FLASH
+    } >FLASH AT>FLASH */
     
     .highcodelalign : 
     {       
@@ -65,7 +49,7 @@ SECTIONS
 		*(.text.*)
 		*(.rodata)
 		*(.rodata*)
-  		*(.sdata2.*)
+  *(.sdata2.*)
 		*(.glue_7)
 		*(.glue_7t)
 		*(.gnu.linkonce.t.*)
@@ -137,7 +121,7 @@ SECTIONS
 
 	.dalign    : 
 	{
-		. = ORIGIN(RAM) + MAX(0x800, SIZEOF(.highcode) + SIZEOF(.highcode_copy));
+		. = ORIGIN(RAM) + MAX(0x800 , SIZEOF(.highcode));
 	} >RAM AT>FLASH	
 
 	.dlalign :

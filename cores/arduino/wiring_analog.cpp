@@ -1,19 +1,15 @@
 /*
   wiring_analog.cpp - analog input and output functions
   Part of Arduino - http://www.arduino.cc/
-
   Copyright (c) 2018-2019 Arduino SA
-
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
   License as published by the Free Software Foundation; either
   version 2.1 of the License, or (at your option) any later version.
-
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
   Lesser General Public License for more details.
-
   You should have received a copy of the GNU Lesser General
   Public License along with this library; if not, write to the
   Free Software Foundation, Inc., 59 Temple Place, Suite 330,
@@ -35,10 +31,43 @@ void analogWriteDAC(pin_size_t pin, int val) {
 
 void analogWrite(pin_size_t pin, int val)
 {
-  GPIOA_ModeCfg(1 << (pin), GPIO_ModeOut_PP_5mA);
+  uint8_t channel = 0x00;
+  if (pin<16) GPIOA_ModeCfg(1 << (pin), GPIO_ModeOut_PP_5mA);
+  
+  if (pin>=16)GPIOB_ModeCfg(1 << (pin-16),  GPIO_ModeOut_PP_5mA);
   PWMX_CLKCfg(4);                                   // cycle = 4/Fsys
-  PWMX_CycleCfg(PWMX_Cycle_64);                     // ���� = 64*cycle
-  PWMX_ACTOUT(CH_PWM4, 64 / 4, Low_Level, ENABLE);  //
+  PWMX_CycleCfg(PWMX_Cycle_256);                     // ���� = 64*cycle
+  /*if(pin == 12){
+    channel = CH_PWM4;
+  }
+  else if(pin == 13){
+    channel = CH_PWM5;
+  }*/
+  switch (pin){
+  case 12:
+  channel = CH_PWM4;
+  break;
+  case 13:
+  channel = CH_PWM5;
+  break;
+  case 16:
+  channel = CH_PWM6;
+  break;
+  case 20:
+  channel = CH_PWM7;
+  break;
+  case 22:
+  channel = CH_PWM8;
+  break;
+  case 23:
+  channel = CH_PWM9;
+  break;
+  case 30:
+  channel = CH_PWM10;
+  break;
+  }
+
+  PWMX_ACTOUT(channel, val , Low_Level, ENABLE);  //
 }
 
 void analogWriteResolution(int bits)

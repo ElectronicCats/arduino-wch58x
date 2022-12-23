@@ -51,24 +51,48 @@ int analogRead(pin_size_t pin)
   int channel = 0;
   GPIOA_ModeCfg(1 << (pin), GPIO_ModeIN_Floating);
   ADC_ExtSingleChSampInit(SampleFreq_3_2, ADC_PGA_0);
-  if((pin == 4) || (pin == 6) || (pin == 7) ){
+  if((pin == 4) || (pin ==  5)){
     channel = pin - 4;
-    ADC_ChannelCfg(channel);
-  }
-  else if((pin == 5) || (pin == 8) || (pin == 9) ){
+    //ADC_ChannelCfg(channel);
+   }
+  if((pin == 6) || (pin == 7) || (pin == 8) || (pin == 9) ){
     channel = pin + 4;
-    ADC_ChannelCfg(channel);
+    //ADC_ChannelCfg(channel);
   }
-  else if( (pin > 11) && (pin <16)){
+  if( (pin > 11) && (pin <16)){
     channel = pin - 10;
-    ADC_ChannelCfg(channel);
+    //ADC_ChannelCfg(channel);
   }
-  else{ 
+  if( (pin >= 0) && (pin < 4)){
     channel = 9-pin;
-    ADC_ChannelCfg(channel);
+    //ADC_ChannelCfg(channel);
   }
-  
-  return ADC_ExcutSingleConver() + ADC_DataCalib_Rough();
+    uint16_t i;
+    uint32_t sum = 0;
+    uint8_t  ch = 0;   // ����ͨ��
+    uint8_t  ctrl = 0; // ���ݿ��ƼĴ���
+
+    ch = R8_ADC_CHANNEL;
+    ctrl = R8_ADC_CFG;
+    R8_ADC_CFG = 0;
+
+    ADC_ChannelCfg(channel);                                          // ADCУ׼ͨ����ѡ��ͨ��1
+    R8_ADC_CFG |= RB_ADC_OFS_TEST | RB_ADC_POWER_ON | (2 << 4); // �������ģʽ
+    R8_ADC_CONVERT = RB_ADC_START;
+    while(R8_ADC_CONVERT & RB_ADC_START);
+    for(i = 0; i < 16; i++)
+    {
+        R8_ADC_CONVERT = RB_ADC_START;
+        while(R8_ADC_CONVERT & RB_ADC_START);
+        sum += (~R16_ADC_DATA) & RB_ADC_DATA;
+    }
+    sum = (sum + 8) >> 4;
+    R8_ADC_CFG &= ~RB_ADC_OFS_TEST; // �رղ���ģʽ
+
+    R8_ADC_CHANNEL = ch;
+    R8_ADC_CFG = ctrl;
+   
+  return ADC_ExcutSingleConver() + (2024 - sum);   // 2048
   
 }
 

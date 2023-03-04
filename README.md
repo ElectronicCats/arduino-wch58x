@@ -46,6 +46,9 @@ The CH58x is a 32-bit RISC microcontroller integrated with BLE wireless communic
 
 - Package: QFN48
 
+##  Wiki and Getting Started
+[**Getting Started in our Wiki**](https://github.com/ElectronicCats/arduino-wch58x/wiki)
+
 ## Backers
 
 Support us with a monthly donation and help us continue our activities. [[Become a backer](https://github.com/sponsors/ElectronicCats)]

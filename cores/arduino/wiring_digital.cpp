@@ -41,9 +41,13 @@ void pinMode(pin_size_t pin, PinMode mode)
       pinConfig=GPIO_ModeIN_PD;
       break;
   }
-  GPIOA_ModeCfg(1 << (pin),pinConfig);
-  GPIOB_ModeCfg(1 << (pin - 16),pinConfig);
 
+  if (pin <16){
+  GPIOA_ModeCfg(1 << (pin),pinConfig);
+  }
+  else{
+  GPIOB_ModeCfg(1 << (pin - 16),pinConfig);
+  }
 }
 
 

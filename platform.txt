@@ -43,8 +43,8 @@ build.extra_ldflags=
 compiler.wch=
 
 # These can be overridden in platform.local.txt
-compiler.c.extra_flags=  "-I{runtime.tools.CH85x-HAL.path}/" "-I{runtime.tools.CH85x-HAL.path}/EVT/EXAM/SRC/" "-I{runtime.tools.CH85x-HAL.path}/EVT/EXAM/SRC/StdPeriphDriver/" "-I{runtime.tools.CH85x-HAL.path}/EVT/EXAM/SRC/StdPeriphDriver/inc/" "-I{runtime.tools.CH85x-HAL.path}/EVT/EXAM/SRC/LIB/" "-I{runtime.tools.CH85x-HAL.path}/EVT/EXAM/SRC/RVMSIS/" "-I{runtime.tools.CH85x-HAL.path}/EVT/EXAM/SRC/HAL/" "-I{runtime.tools.CH85x-HAL.path}/EVT/EXAM/SRC/HAL/include/"
-compiler.cpp.extra_flags="-I{runtime.tools.CH85x-HAL.path}/" "-I{runtime.tools.CH85x-HAL.path}/EVT/EXAM/SRC/" "-I{runtime.tools.CH85x-HAL.path}/EVT/EXAM/SRC/StdPeriphDriver/" "-I{runtime.tools.CH85x-HAL.path}/EVT/EXAM/SRC/StdPeriphDriver/inc/" "-I{runtime.tools.CH85x-HAL.path}/EVT/EXAM/SRC/LIB/" "-I{runtime.tools.CH85x-HAL.path}/EVT/EXAM/SRC/RVMSIS/" "-I{runtime.tools.CH85x-HAL.path}/EVT/EXAM/SRC/HAL/" "-I{runtime.tools.CH85x-HAL.path}/EVT/EXAM/SRC/HAL/include/"
+compiler.c.extra_flags=  "-I{build.core.path}/ch583/EVT/EXAM/SRC/LIB" "-I{runtime.tools.CH58x-HAL.path}/" "-I{runtime.tools.CH58x-HAL.path}/EVT/EXAM/SRC/" "-I{runtime.tools.CH58x-HAL.path}/EVT/EXAM/SRC/StdPeriphDriver/" "-I{runtime.tools.CH58x-HAL.path}/EVT/EXAM/SRC/StdPeriphDriver/inc/" "-I{runtime.tools.CH58x-HAL.path}/EVT/EXAM/SRC/LIB/" "-I{runtime.tools.CH58x-HAL.path}/EVT/EXAM/SRC/RVMSIS/" "-I{runtime.tools.CH58x-HAL.path}/EVT/EXAM/SRC/HAL/" "-I{runtime.tools.CH58x-HAL.path}/EVT/EXAM/SRC/HAL/include/"
+compiler.cpp.extra_flags="-I{build.core.path}/ch583/EVT/EXAM/SRC/LIB" "-I{runtime.tools.CH58x-HAL.path}/" "-I{runtime.tools.CH58x-HAL.path}/EVT/EXAM/SRC/" "-I{runtime.tools.CH58x-HAL.path}/EVT/EXAM/SRC/StdPeriphDriver/" "-I{runtime.tools.CH58x-HAL.path}/EVT/EXAM/SRC/StdPeriphDriver/inc/" "-I{runtime.tools.CH58x-HAL.path}/EVT/EXAM/SRC/LIB/" "-I{runtime.tools.CH58x-HAL.path}/EVT/EXAM/SRC/RVMSIS/" "-I{runtime.tools.CH58x-HAL.path}/EVT/EXAM/SRC/HAL/" "-I{runtime.tools.CH58x-HAL.path}/EVT/EXAM/SRC/HAL/include/"
 compiler.c.elf.extra_flags=
 compiler.S.extra_flags=
 
